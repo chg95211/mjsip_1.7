@@ -26,6 +26,7 @@ import local.media.RtpStreamSender;
 import local.media.RtpStreamReceiver;
 import local.media.RtpStreamReceiverListener;
 import org.zoolu.net.SocketAddress;
+import org.zoolu.net.UdpSocket;
 import org.zoolu.sip.provider.SipStack;
 import org.zoolu.tools.Log;
 import org.zoolu.tools.ExceptionPrinter;
@@ -124,7 +125,7 @@ public class AudioMixer implements RtpStreamReceiverListener
      * by a class that extends AudioMixer in order to implement new output encoding mechanisms.
      * @return It returns a new RtpStreamSender. */
    protected RtpStreamSender newRtpStreamSender(InputStream is, String codec, int payload_type, float sample_rate, int frame_size, DatagramSocket socket, String dest_addr, int dest_port) throws Exception
-   {  return new RtpStreamSender(is,true,payload_type,(int)(sample_rate/frame_size),frame_size,socket,dest_addr,dest_port);
+   {  return new RtpStreamSender(is,true,payload_type,(int)(sample_rate/frame_size),frame_size,new UdpSocket(socket),dest_addr,dest_port);
    }
 
 
@@ -133,7 +134,7 @@ public class AudioMixer implements RtpStreamReceiverListener
      * by a class that extends AudioMixer in order to implement new input decoding mechanisms.
      * @return It returns a new RtpStreamReceiver. */
    protected RtpStreamReceiver newRtpStreamReceiver(OutputStream os, String codec, float sample_rate, DatagramSocket socket)  throws Exception
-   {  return new RtpStreamReceiver(os,socket,this);
+   {  return new RtpStreamReceiver(os,new UdpSocket(socket),this);
    }
 
 
