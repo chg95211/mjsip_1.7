@@ -54,8 +54,8 @@ public class UdpSocket
    {  socket=new DatagramSocket(port,ipaddr.getInetAddress());
    }
    
-   /** Creates a new UdpSocket */ 
-   UdpSocket(DatagramSocket sock)
+   /** Creates a new UdpSocket */
+   public UdpSocket(DatagramSocket sock)
    {  socket=sock;
    }
 
